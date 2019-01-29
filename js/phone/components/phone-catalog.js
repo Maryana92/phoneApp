@@ -1,37 +1,28 @@
-export default class PhoneCatalog {
-    constructor({
-        element,
-        phones = [],
-        onPhoneSelected = ()=>{}
-    }) {
-        this._element = element;
-        this._phones = phones;
-        this._onPhoneSelected = onPhoneSelected;
+import Component from '../../component.js';
 
+export default class PhoneCatalog extends Component{
+    constructor({  element,phones = []    }) {
+        super({ element });
+        
+        this._phones = phones;
         this._render();
         
-        this._element.addEventListener('click', (event) => {
+        this.on('click', 'details-link', (event) => {
             let phoneElement = event.target.closest('[data-element="phone"]');
-            
-            if(!phoneElement){
-                return;
-            }
-            this._onPhoneSelected (phoneElement.dataset.phoneId);
-        });
-        
-
+            this.emit('phone-selected', phoneElement.dataset.phoneId);
+        })
     }
     
-    hide(){
-        this._element.hidden = true;
-    }
-
+   
+    
     _render() {
         this._element.innerHTML = `
          <ul class="phones">
           ${this._phones.map(phone => `
             <li class="thumbnail" data-element="phone" data-phone-id="${phone.id}">
-            <a href="#!/phones/${phone.id}" class="thumb">
+            
+
+            <a href="#!/phones/${phone.id}" class="thumb" data-element="details-link">
               <img alt="${phone.name}" src="${phone.imageUrl}">
             </a>
 
@@ -41,7 +32,7 @@ export default class PhoneCatalog {
               </a>
             </div>
 
-            <a href="#!/phones/motorola-xoom-with-wi-fi">${phone.name}</a>
+            <a href="#!/phones/motorola-xoom-with-wi-fi" data-element="details-link">${phone.name}</a>
             <p>${phone.snippet}</p>
           </li>
 
