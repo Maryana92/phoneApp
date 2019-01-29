@@ -48,6 +48,12 @@ _initShoppingCart(){
     this._cart = new ShoppingCart({
       element: document.querySelector('[data-component="shopping-cart"]'),
     });
+    
+    this._cart.subscribe('addToCart',  (phone) => {
+        let phoneElement = event.target.closest('[data-element="phone"]');
+        
+        console.log(phoneElement.dataset.phoneId);
+    })
 }
 
 _initFilter(){

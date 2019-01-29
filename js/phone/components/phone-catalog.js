@@ -27,7 +27,7 @@ export default class PhoneCatalog extends Component{
             </a>
 
             <div class="phones__btn-buy-wrapper">
-              <a class="btn btn-success">
+              <a data-element="add-to-cart" class="btn btn-success">
                 Add
               </a>
             </div>
